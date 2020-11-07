@@ -1,6 +1,8 @@
 FROM kadalu/kadalu-base
 
-RUN yum -y install python3-pyxattr glusterfs-server
+RUN dnf -y install python3-pyxattr glusterfs-server \
+ && dnf clean all -y \
+ && rm -rf /var/cache/dnf
 RUN rpm -qa | grep gluster | tee /gluster-rpm-versions.txt
 
 COPY lib/kadalulib.py        /kadalu/kadalulib.py
